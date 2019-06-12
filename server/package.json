@@ -1,0 +1,69 @@
+{
+  "name": "pickyourtrade-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Supporting backend for the PickYourTrade webapp",
+  "license": "UNLICENSED",
+  "author": "GP <me@httgp.com>",
+  "homepage": "https://github.com/paambaati/pickyourtrade",
+  "bugs": {
+    "url": "https://github.com/paambaati/pickyourtrade/issues",
+    "email": "me@httgp.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paambaati/pickyourtrade"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "config/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "scripts": {
+    "start": "node $NODE_OPTIONS lib/server.js",
+    "lint": "tslint --project './tsconfig.json' --exclude './src/package.json' --format verbose",
+    "lint:test": "tslint --project './tsconfig.test.json' --exclude '**/*.json' --format verbose",
+    "build": "yarn lint && tsc",
+    "test": "yarn lint:test && NODE_ENV=test LOG_LEVEL=silent ts-node tape test/**/*.test.ts test/*.test.ts",
+    "coverage": "rm -rf ./node_modules/.cache && rm -rf coverage/ && rm -rf .nyc_output/ && nyc yarn test",
+    "debug": "SUPPRESS_SUPPORT=1 nodemon",
+    "prepublishOnly": "rm -rf lib/ && yarn build"
+  },
+  "dependencies": {
+    "@koa/cors": "2",
+    "better-sqlite3-helper": "2.0.2",
+    "config": "3.1.0",
+    "koa": "2.7.0",
+    "koa-json-body": "^5.3.0",
+    "koa-tree-router": "0.4.8",
+    "pino": "5.12.6"
+  },
+  "devDependencies": {
+    "@types/config": "0.0.34",
+    "@types/koa": "2.0.48",
+    "@types/nock": "9.3.1",
+    "@types/node": "10.x",
+    "@types/pino": "5.8.5",
+    "@types/supertest": "2.0.7",
+    "@types/tape": "4.2.33",
+    "nock": "10.0.6",
+    "nodemon": "1.19.1",
+    "nyc": "14.1.1",
+    "supertest": "4.0.2",
+    "tape": "4.10.2",
+    "ts-node": "8.2.0",
+    "tslint": "5.17.0",
+    "tslint-config-airbnb": "5.11.1",
+    "typescript": "3.5.1"
+  },
+  "resolutions": {
+    "@types/node": "10.x"
+  }
+}

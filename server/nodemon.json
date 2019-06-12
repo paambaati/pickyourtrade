@@ -1,0 +1,5 @@
+{
+    "watch": ["src", "config", "data"],
+    "ext": "ts, json",
+    "exec": "yarn build && LOG_LEVEL=trace node lib/server.js --trace-warnings"
+}

@@ -37,7 +37,7 @@
     "prepublishOnly": "rm -rf lib/ && yarn build"
   },
   "dependencies": {
-    "@koa/cors": "2",
+    "@koa/cors": "3.0.0",
     "better-sqlite3-helper": "2.0.2",
     "config": "3.1.0",
     "koa": "2.7.0",
@@ -48,9 +48,9 @@
   "devDependencies": {
     "@types/config": "0.0.34",
     "@types/koa": "2.0.48",
-    "@types/nock": "9.3.1",
+    "@types/nock": "10.0.3",
     "@types/node": "10.x",
-    "@types/pino": "5.8.5",
+    "@types/pino": "5.8.8",
     "@types/supertest": "2.0.7",
     "@types/tape": "4.2.33",
     "nock": "10.0.6",

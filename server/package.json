@@ -31,7 +31,7 @@
     "lint": "tslint --project './tsconfig.json' --exclude './src/package.json' --format verbose",
     "lint:test": "tslint --project './tsconfig.test.json' --exclude '**/*.json' --format verbose",
     "build": "yarn lint && tsc",
-    "test": "yarn lint:test && NODE_ENV=test LOG_LEVEL=silent ts-node tape test/**/*.test.ts test/*.test.ts",
+    "test": "yarn lint:test && NODE_ENV=test LOG_LEVEL=silent ts-node ./node_modules/.bin/tape test/**/*.test.ts test/*.test.ts",
     "coverage": "rm -rf ./node_modules/.cache && rm -rf coverage/ && rm -rf .nyc_output/ && nyc yarn test",
     "debug": "SUPPRESS_SUPPORT=1 nodemon",
     "prepublishOnly": "rm -rf lib/ && yarn build"

@@ -1,0 +1,10 @@
+{
+    "database": {
+        "file": "./data/pyt_test.db",
+        "migrations": "./data/migrations"
+    },
+    "users": [{
+        "username": "test1",
+        "password": "pass1"
+    }]
+}

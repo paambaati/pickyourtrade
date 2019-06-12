@@ -1,0 +1,16 @@
+{
+    "api": {
+        "port": 4200
+    },
+    "users": [{
+        "username": "pyt1",
+        "password": "pass1"
+    }, {
+        "username": "pyt2",
+        "password": "pass2"
+    }],
+    "database": {
+        "file": "./data/pyt.db",
+        "migrations": "./data/migrations"
+    }
+}

@@ -49,7 +49,7 @@ Note that the tests are not extensive. The current test suite covers all aspects
 1. Embeddable, so portable and no additional setup.
 2. Very fast and capable <sup id="a1">[[1]](#f1)</sup><sup id="a2">[[2]](#f2)</sup> for simple workloads (all the app uses is `SELECT` &amp; `INSERT`).
 3. Has an in-memory mode too, which is _much_ faster than disk-backed mode.
-4. The database size is relative small (//TODO: extrapolate some numbers here).
+4. The database size is relative small (a million portfolio records occupies ~120MB of disk space).
 
 ## 📈 Scale
 

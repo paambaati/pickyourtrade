@@ -1,5 +1,5 @@
-# PickYourTrade
-A portfolio tracker built on Node, Vue &amp; SQLite3.
+# 💰 PickYourTrade
+A portfolio tracker built on Node, Vue & SQLite3.
 
 // TODO: screencast GIF with Gifox.
 
@@ -7,12 +7,13 @@ A portfolio tracker built on Node, Vue &amp; SQLite3.
 
 ### Quick-Start
 
-Just paste these into your terminal console.
+Just paste these into your terminal console (you can substitute `npm` with `yarn` if you'd like).
 
 1. `git clone git@github.com:paambaati/pickyourtrade.git`
 2. `cd pickyourtrade/app && npm install && npm run serve`
 3. In a new window, `cd pickyourtrade/server && npm install && npm run debug`
-4. Open [`http://localhost:8080`](http://localhost:8080) in your browser!
+
+Now open [`http://localhost:8080`](http://localhost:8080) in your browser!
 
 ### Running Tests
 
@@ -45,35 +46,68 @@ The current version of the app is built on Node.js for the backend API, and uses
 
 ### Benchmarks
 
-// TODO: run benchmarks and paste numbers here - perhaps looks at https://k6.io/ or vegeta.
+[`vegeta`](https://github.com/tsenart/vegeta#limitations) was used to benchmark a cold-started version of the app running SQLite in disk-mode. Write benchmark tries to send 1k `PUT` requests (1k `INSERT`s), and the read benchmark tries to send 1k `GET` requests (1k `SELECT`s) on sample data of 100 records.
 
-These numbers show that the current version of the app can easily scale to 1000 concurrent users.
+The benchmarks can be recreated with [`benchmarks/run.sh`](https://github.com/paambaati/pickyourtrade/blob/master/benchmarks/run.sh).
+
+```
+INSERT Benchmark Results
+
+Requests      [total, rate]            1000, 1001.06
+Duration      [total, attack, wait]    999.401273ms, 998.943484ms, 457.789µs
+Latencies     [mean, 50, 95, 99, max]  1.273438ms, 519.687µs, 3.201523ms, 22.237725ms, 24.941809ms
+Bytes In      [total, mean]            0, 0.00
+Bytes Out     [total, mean]            285000, 285.00
+Success       [ratio]                  100.00%
+Status Codes  [code:count]             200:1000
+```
+
+```
+READ Benchmark Results
+
+Requests      [total, rate]            1000, 1001.07
+Duration      [total, attack, wait]    8.917441283s, 998.930366ms, 7.918510917s
+Latencies     [mean, 50, 95, 99, max]  4.807794447s, 4.746398003s, 8.281871586s, 8.332671972s, 8.34698592s
+Bytes In      [total, mean]            0, 0.00
+Bytes Out     [total, mean]            0, 0.00
+Success       [ratio]                  100.00%
+Status Codes  [code:count]             200:1000
+```
+
+READ Benchmark (Disk)      |  WRITE Benchmark (Disk)
+:-------------------------:|:-------------------------:
+![READ Benchmark Plot](benchmarks/results/read.png) | ![WRITE Benchmark Plot](benchmarks/results/insert.png)
+
+These numbers show that the current version of the app _can_ scale to 1000 concurrent users.
 
 ### Scaling Beyond 1k Users
 
 Before we scale-up this solution, we'll need some numbers around usage characteristics —
 
 1. Is the app read-heavy or write-heavy?
-2. Do the read and write times deteriorate over time with more users onboarded? If yes, by how much? This is where baseline and periodic performance metrics help.
+2. Do the read and write times deteriorate over time with more users onboarded? If yes, by how much? How many of the users are impacted by this? This is where baseline and periodic performance metrics help.
 3. What is the average size of a single row of data? What is the average size of a user's portfolio (`average row size * no. tickers average user has`)?
+4. What kind of data can be cached? If there's candidates for caching, it might be worthwhile building a cache layer (perhaps a in-memory cache or a lean K-V store like Redis).
 
 With these numbers in place, we can then try to find performance bottlenecks. Possible bottlenecks are —
 
 | **Bottleneck** | **Causes** | **Solutions** |  |  |
 |---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---|---|
-| Slow DB read/writes. | 1. Slow disk. 2. Low free RAM (only in memory mode). | 1. Upgrade to SSD/NVMe/IOPS-optimized storage. 2. Upgrade RAM.|  |  |
+| Slow DB read/writes. | 1. Slow disk. 2. Low free RAM (only in memory mode). | 1. Upgrade to SSD/NVMe/IOPS-optimized storage. 2. Upgrade RAM. |  |  |
 | Too many open HTTP connections. | 1. Long-running connections. 2. Too few open handles. | 1. Identify root cause for long-running connections and fix them. 2. Fine-tune `sysctl`. |  |  |
-| Memory leaks | 1. Too many global variables. 2. Very big closures that cannot be GC'ed fast enough. 3. Unbound collections that can grow unchecked. | 1. Avoid global variables. 2. Use closures sparingly. 3. Always set upper bounds for any collection data structure. |  |  |
+| Memory leaks. | 1. Too many global variables. 2. Very big closures that cannot be GC'ed fast enough. 3. Unbound collections that can grow unchecked. | 1. Avoid global variables. 2. Use closures sparingly. 3. Always set upper bounds for any collection data structure. |  |  |
+| Segmentation faults and/or crashes. | 1. V8 is running out of memory to use, as it it's heap size is limited 1GB on 64-bit systems. | 1. Tune [`--max-old-space-size`](https://nodejs.org/api/cli.html) to make sure V8 can use all available RAM. |  |  |
+| Very high response latency and/or connection drops. | 1. User's data has grown too big. | 1. Lazy load (i.e. paginate data) on the frontend. |  |  |
 
-🚩 Note that some of these are specific to Node.js.
+🚩 Some of the causes & solutions might be specific to Node.js.
 
 #### Horizontal Scaling & Choice of Database
 
 Note that most of the solutions discussed above are to vertically scale the app. In most cases however, the database is the biggest bottleneck of any app. As the app's userbase scales rapidly, it might be considering a **distributed** database. Based on the app usage metrics and our performance baseline metrics, an appropriate database can be chosen to replace SQLite; any database that can provide easy replication would let us horizontally scale.
 
-📣 A _personal_ recommendation would be [RethinkDB](https://www.rethinkdb.com/) — it is built from the ground-up for the real-time web (especially great for streaming data), and so would be a great match to build more features like a live updating ticker<sup id="a3">[[3]](#f3)</sup>. It has sharding/replication, fantastic documentation, a very well thought-out admin UI and a fun query language<sup id="a4">[[4]](#f4)</sup> that feels great to use in JS-land.
+📣 A _personal_ recommendation would be [RethinkDB](https://www.rethinkdb.com/) — it is built from the ground-up for the real-time web (especially great for streaming data), and so would be a great match to build more features like a live updating ticker<sup id="a3">[[3]](#f3)</sup>. Out of the box, it has sharding/replication, fantastic documentation, a very well thought-out admin UI and a fun query language<sup id="a4">[[4]](#f4)</sup> that feels great to use in JS-land.
 
-## Footnotes
+## 📝 Footnotes
 
 <b id="f1">1</b> [What are the performance characteristics of SQLite with very large database file?](https://stackoverflow.com/questions/784173/what-are-the-performance-characteristics-of-sqlite-with-very-large-database-file). [↩](#a1)
 

@@ -1,0 +1,13 @@
+{
+    "ticker": "TSLA",
+    "company": "Tesla",
+    "region": "United States",
+    "high": 100.12,
+    "low": 99.73,
+    "open": 101.55,
+    "close": 100.34,
+    "currentPrice": 102.45,
+    "lastRefreshed": "2019-06-13 05:59:59",
+    "stockCount": 500,
+    "stockPurchasePrice": 100
+}

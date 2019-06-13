@@ -1,0 +1,3 @@
+PUT http://localhost:4200/portfolio/pyt1
+Authorization: Basic cHl0MTpwYXNzMQ==
+@./inputs/insert-portfolio.json

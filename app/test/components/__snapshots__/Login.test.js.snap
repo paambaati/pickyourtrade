@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`✨Login.test.js renders correctly 1`] = `
+<div
+  class="container"
+>
+  <section
+    class="section"
+  >
+    <div
+      class="columns is-centered"
+    >
+      <div
+        class="column is-5-tablet is-4-desktop is-4-widescreen"
+      >
+        <b-loading-stub
+          animation="fade"
+          oncancel="function _default() {}"
+        />
+         
+        <form
+          class="box"
+          role="form"
+        >
+          <b-message-stub
+            ariacloselabel="Close alert"
+            closable="true"
+            duration="2000"
+            type="is-danger"
+          >
+            
+              😲Login failed. Please check your credentials!
+            
+          </b-message-stub>
+           
+          <b-field-stub
+            addons="true"
+            label="Username"
+          >
+            <b-input-stub
+              customclass=""
+              hascounter="true"
+              required=""
+              type="text"
+              usehtml5validation="true"
+              value=""
+            />
+          </b-field-stub>
+           
+          <b-field-stub
+            addons="true"
+            label="Password"
+          >
+            <b-input-stub
+              customclass=""
+              hascounter="true"
+              passwordreveal="true"
+              required=""
+              type="password"
+              usehtml5validation="true"
+              value=""
+            />
+          </b-field-stub>
+           
+          <b-button-stub
+            class="is-primary"
+            nativetype="submit"
+            tag="button"
+          >
+            Login
+          </b-button-stub>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+`;

@@ -151,7 +151,6 @@ let store = new Vuex.Store({
         updatePortfolio({ commit, state }, payload) {
             return new Promise((resolve, reject) => {
                 const username = {...state.user}.username;
-                // eslint-disable-next-line no-unused-vars
                 const { totalValue, profit, ...updates } = payload;
                 return axios({
                         url: `${backendEndpoint}/portfolio/${username}`,

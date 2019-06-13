@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  backend:
+    build: ./server
+    expose:
+      - 4200
+    ports:
+      - 4200:4200
+    networks:
+      - backbone
+    volumes:
+      - ./server:/server
+    command: npm run start
+
+  frontend:
+    build: ./app
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    volumes:
+      - ./app:/app
+    links:
+      - backend
+    command: http-server dist
+
+  nginx:
+    image: nginx:1.16
+    ports:
+      - 2000:2000
+    networks:
+      - backbone
+    depends_on:
+      - backend
+      - frontend
+    links:
+      - backend:backend
+      - frontend:frontend
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    command: nginx-debug -g 'daemon off;'
+
+networks:
+
+  backbone:
+    driver: bridge

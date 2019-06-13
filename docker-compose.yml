@@ -10,8 +10,6 @@ services:
       - 4200:4200
     networks:
       - backbone
-    volumes:
-      - ./server:/server
     command: npm run start
 
   frontend:
@@ -20,8 +18,8 @@ services:
       - 8080
     ports:
       - 8080:8080
-    volumes:
-      - ./app:/app
+    networks:
+      - backbone
     links:
       - backend
     command: http-server dist

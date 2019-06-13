@@ -10,10 +10,21 @@ A portfolio tracker built on Node, Vue & SQLite3.
 Just paste these into your terminal console (you can substitute `npm` with `yarn` if you'd like).
 
 1. `git clone git@github.com:paambaati/pickyourtrade.git`
-2. `cd pickyourtrade/app && npm install && npm run serve`
-3. In a new window, `cd pickyourtrade/server && npm install && npm run debug`
+2. <details>
+        <summary>Docker</summary>
 
-Now open [`http://localhost:8080`](http://localhost:8080) in your browser!
+        docker-compose up --build
+        # Now open http://localhost:2000
+    </details>
+
+    <details>
+        <summary>Non-Docker</summary>
+
+        cd pickyourtrade/app && npm install && npm run serve
+        # Open a new terminal
+        cd pickyourtrade/server && npm install && npm run debug
+        # Now open http://localhost:8080
+    </details>
 
 ### Running Tests
 

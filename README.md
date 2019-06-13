@@ -100,13 +100,13 @@ Before we scale-up this solution, we'll need some numbers around usage character
 
 With these numbers in place, we can then try to find performance bottlenecks. Possible bottlenecks are —
 
-| **Bottleneck** | **Causes** | **Solutions** |  |  |
+| **Bottleneck** | **Causes** | **Solutions** |
 |---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---|---|
-| Slow DB read/writes. | 1. Slow disk. 2. Low free RAM (only in memory mode). | 1. Upgrade to SSD/NVMe/IOPS-optimized storage. 2. Upgrade RAM. |  |  |
-| Too many open HTTP connections. | 1. Long-running connections. 2. Too few open handles. | 1. Identify root cause for long-running connections and fix them. 2. Fine-tune `sysctl`. |  |  |
-| Memory leaks. | 1. Too many global variables. 2. Very big closures that cannot be GC'ed fast enough. 3. Unbound collections that can grow unchecked. | 1. Avoid global variables. 2. Use closures sparingly. 3. Always set upper bounds for any collection data structure. |  |  |
-| Segmentation faults and/or crashes. | 1. V8 is running out of memory to use, as it it's heap size is limited 1GB on 64-bit systems. | 1. Tune [`--max-old-space-size`](https://nodejs.org/api/cli.html) to make sure V8 can use all available RAM. |  |  |
-| Very high response latency and/or connection drops. | 1. User's data has grown too big. | 1. Lazy load (i.e. paginate data) on the frontend. |  |  |
+| Slow DB read/writes. | 1. Slow disk. 2. Low free RAM (only in memory mode). | 1. Upgrade to SSD/NVMe/IOPS-optimized storage. 2. Upgrade RAM. |
+| Too many open HTTP connections. | 1. Long-running connections. 2. Too few open handles. | 1. Identify root cause for long-running connections and fix them. 2. Fine-tune `sysctl`. |
+| Memory leaks. | 1. Too many global variables. 2. Very big closures that cannot be GC'ed fast enough. 3. Unbound collections that can grow unchecked. | 1. Avoid global variables. 2. Use closures sparingly. 3. Always set upper bounds for any collection data structure. |
+| Segmentation faults and/or crashes. | 1. V8 is running out of memory to use, as it it's heap size is limited 1GB on 64-bit systems. | 1. Tune [`--max-old-space-size`](https://nodejs.org/api/cli.html) to make sure V8 can use all available RAM. |
+| Very high response latency and/or connection drops. | 1. User's data has grown too big. | 1. Lazy load (i.e. paginate data) on the frontend. |
 
 🚩 Some of the causes & solutions might be specific to Node.js.
 

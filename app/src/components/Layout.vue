@@ -32,8 +32,16 @@
 </template>
 
 <script>
+import Login from './Login';
+import Search from './Search';
+import Tracker from './Tracker';
 export default {
   name: 'layout',
+  components: {
+    Login,
+    Search,
+    Tracker,
+  },
   computed: {
       isLoggedIn: function() {
         return this.$store.getters.isLoggedIn;

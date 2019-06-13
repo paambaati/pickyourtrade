@@ -1,6 +1,7 @@
 {
     "database": {
         "file": "./data/pyt_test.db",
+        "memory": true,
         "migrations": "./data/migrations"
     },
     "users": [{

@@ -6,22 +6,21 @@ import DB from 'better-sqlite3-helper';
 
 /**
  * Database Singleton class.
- * Always use getInstance() to access it.
  *
  * Connects to SQLite3 DB and runs migrations on first init.
  */
 export default class Database {
-    private static instance: Database;
     public db: any;
     /**
      * Database class.
      * @param filename - Name of DB file. Set to undefined to use in-memory.
+     * @param memory - Use in-memory mode. Defaults to `false`.
      * @param migrations - Name of migrations directory.
      */
-    public constructor(filename: string | undefined, migrations: string | undefined) {
+    public constructor(filename?: string | undefined, memory?: boolean, migrations?: string | undefined) {
         this.db = DB({
             path: filename || './data/pyt.db',
-            memory: filename ? false : true,
+            memory: memory || false,
             migrate: {
                 force: false,
                 table: 'migration',
@@ -29,16 +28,6 @@ export default class Database {
             },
         });
         return this;
-    }
-
-    /**
-     * Database singleton instance.
-     * @param filename - Name of DB file. Set to undefined to use in-memory.
-     * @param migrations - Name of migrations directory.
-     * @returns static instance of this.
-     */
-    public static getInstance(filename?: string, migrations?: string) {
-        return this.instance || (this.instance = new this(filename, migrations));
     }
 
     /**

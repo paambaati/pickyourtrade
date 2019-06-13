@@ -11,6 +11,7 @@
     }],
     "database": {
         "file": "./data/pyt.db",
+        "memory": false,
         "migrations": "./data/migrations"
     }
 }

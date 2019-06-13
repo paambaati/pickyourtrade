@@ -2,7 +2,7 @@ import { IRouterContext } from 'koa-tree-router';
 import Database from '../utils/database';
 
 // Initializers.
-const db = Database.getInstance();
+const db = new Database(); // Returns singleton DB class.
 const TABLE = 'portfolios';
 
 /**

@@ -26,7 +26,7 @@ import Database from './utils/database';
 
 // Initializers.
 const logger = new Logger('pyt-server').logger;
-Database.getInstance(config.get('database.file'), config.get('database.migrations'));
+new Database(config.get('database.file'), config.get('database.memory'), config.get('database.migrations'));
 
 // Koa setup.
 const app = new Koa();

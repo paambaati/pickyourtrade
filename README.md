@@ -1,7 +1,5 @@
 # 💰 PickYourTrade
-A portfolio tracker built on Node, Vue & SQLite3.
-
-// TODO: screencast GIF with Gifox.
+A portfolio tracker built on Node, TypeScript, Vue & SQLite3.
 
 ## ⚙️ Setup
 

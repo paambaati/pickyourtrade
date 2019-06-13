@@ -1,9 +1,9 @@
-# PickYourTrade Web App
+# PickYourTrade API Server
 
 ## 🐳 Ready-to-build Docker image
 ```
-docker build -t pyt-app .
-docker run -it -p 8080:8080 pyt-app
+docker build -t pyt-api .
+docker run -it -p 4200:4200 pyt-api
 ```
 
 ## Project setup
@@ -12,14 +12,14 @@ docker run -it -p 8080:8080 pyt-app
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
+### Compiles
 ```
 yarn run build
+```
+
+### Run your API server
+```
+yarn run start
 ```
 
 ### Run your tests

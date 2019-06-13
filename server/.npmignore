@@ -1,0 +1,8 @@
+src/
+tsconfig.json
+nodemon.json
+assets/
+data/
+bin/
+config/*.conf
+deploy/

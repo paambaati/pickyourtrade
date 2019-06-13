@@ -34,7 +34,7 @@
     "build": "tsc",
     "test": "yarn lint:test && NODE_ENV=test LOG_LEVEL=silent ts-node ./node_modules/.bin/tape test/**/*.test.ts test/*.test.ts",
     "coverage": "rm -rf ./node_modules/.cache && rm -rf coverage/ && rm -rf .nyc_output/ && nyc yarn test",
-    "debug": "SUPPRESS_SUPPORT=1 nodemon",
+    "debug": "SUPPRESS_SUPPORT=1 $NODE_OPTIONS nodemon",
     "prepublishOnly": "rm -rf lib/ && yarn build"
   },
   "dependencies": {

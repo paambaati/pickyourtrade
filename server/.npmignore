@@ -3,6 +3,7 @@ tsconfig.json
 nodemon.json
 assets/
 data/
+benchmarks/
 bin/
 config/*.conf
 deploy/

@@ -1,6 +1,8 @@
 # 💰 PickYourTrade
 A portfolio tracker built on Node, TypeScript, Vue & SQLite3.
 
+ℹ Note that this project was **purpose-built for a coding challenge**, and isn't actually meant to be used as anything useful other than serving as boilerplate/example for a Node/Koa + Vue.js app.
+
 ## ⚙️ Setup
 
 ### Quick-Start

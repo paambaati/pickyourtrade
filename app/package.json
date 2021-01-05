@@ -22,7 +22,7 @@
     "test:update-snapshots": "jest --updateSnapshot --verbose"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "buefy": "^0.7.7",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
